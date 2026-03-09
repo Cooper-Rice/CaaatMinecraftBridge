@@ -6,6 +6,20 @@ Built for [caaat.dev](https://caaat.dev) — a NeoForge 1.21.11 Minecraft server
 
 ---
 
+## Downloads
+
+> ⚠️ The mods require **NeoForge 1.21.11** and are **server-side only** — do not install on the client.
+
+| Download | Description |
+|---|---|
+| [📦 bot.js (source)](https://github.com/Cooper-Rice/CaaatMinecraftBridge/archive/refs/heads/main.zip) | The Node.js bridge server |
+| [🔧 caaat_chat_bridge.jar](https://github.com/Cooper-Rice/CaaatMinecraftBridge/releases/latest/download/caaat_chat_bridge.jar) | Chat/events mod — drop into your server's `mods/` folder |
+| [📊 caaat_stats.jar](https://github.com/Cooper-Rice/CaaatMinecraftBridge/releases/latest/download/caaat_stats.jar) | Stats mod — drop into your server's `mods/` folder |
+
+Full releases and changelogs on the [Releases page](https://github.com/Cooper-Rice/CaaatMinecraftBridge/releases).
+
+---
+
 ## Features
 
 - 💬 **Bidirectional chat** between Minecraft, Discord, and the website
@@ -49,7 +63,7 @@ Built for [caaat.dev](https://caaat.dev) — a NeoForge 1.21.11 Minecraft server
 - **caaat_stats** sends periodic player count and server info
 - The **website** sends messages via `POST /` and receives real-time updates via `GET /events` (SSE)
 - **Discord** receives events via a webhook, and the bot watches the channel to relay messages back to Minecraft and the website
-- The bot is exposed publicly via a **Cloudflare Tunnel** (`api.caaat.dev`)
+- The bot is exposed publicly via a **Cloudflare Tunnel** (`backend.caaat.dev`)
 
 ---
 
