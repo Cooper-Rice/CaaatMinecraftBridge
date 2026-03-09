@@ -146,6 +146,30 @@ bot.js               # Main bridge server
 bridge-state.json    # Persisted bridge state (auto-generated, never committed)
 package.json
 ```
+---
+
+## Mod Configuration
+
+Both mods generate a server config file on first launch at:
+
+```
+config/caaat_chat_bridge-server.toml
+config/caaat_stats-server.toml
+```
+
+Each config has two values:
+
+```toml
+# WebSocket URL of your bot.js server
+bot_ws_url = "ws://localhost:3000/ws"
+
+# Shared secret token to authenticate with bot.js
+bot_token = "changeme"
+```
+
+**`bot_ws_url`** — where the mod should connect to bot.js. If bot.js is running on the same machine as the Minecraft server, leave this as `ws://localhost:3000/ws`. If they're on separate machines (e.g. different VMs), replace `localhost` with the internal IP of the machine running bot.js.
+
+**`bot_token`** — a shared secret that must match the `MC_AUTH_TOKEN` value in your bot.js `.env` file. Change this to something secret — the mod will be rejected if the tokens don't match.
 
 ---
 
