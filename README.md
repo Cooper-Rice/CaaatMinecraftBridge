@@ -12,7 +12,7 @@ Built for [caaat.dev](https://caaat.dev) — a NeoForge 1.21.11 Minecraft server
 
 | Download | Description |
 |---|---|
-| [📦 bot.js (source)](https://github.com/Cooper-Rice/CaaatMinecraftBridge/archive/refs/heads/main.zip) | The Node.js bridge server |
+| [📦 bot.js (source)](https://github.com/Cooper-Rice/CaaatMinecraftBridge/releases/tag/bot.js) | The Node.js bridge server |
 | [🔧 caaat_chat_bridge.jar](https://github.com/Cooper-Rice/CaaatMinecraftBridge/releases/tag/caaat_chat_bridge) | Chat/events mod — drop into your server's `mods/` folder |
 | [📊 caaat_stats.jar](https://github.com/Cooper-Rice/CaaatMinecraftBridge/releases/tag/caaat_stats) | Stats mod — drop into your server's `mods/` folder |
 
