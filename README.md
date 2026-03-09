@@ -25,7 +25,7 @@ Full releases and changelogs on the [Releases page](https://github.com/Cooper-Ri
 - 💬 **Bidirectional chat** between Minecraft, Discord, and the website
 - 📡 **Server-Sent Events (SSE)** for real-time updates on the website (no polling)
 - 🟢 **Live server status** — player count, version, uptime
-- 🏆 **Game events** — joins, leaves, deaths, and advancements posted to Discord
+- 🏆 **Game events** — joins, leaves, deaths, and advancements posted to Discord and website
 - 🛡️ **Profanity filter** on all website messages
 - ⏱️ **Rate limiting** on website chat (per IP)
 - 🔇 **Bridge controls** via Discord slash commands (`/bridge web readonly`, `/bridge web on`)
@@ -38,7 +38,7 @@ Full releases and changelogs on the [Releases page](https://github.com/Cooper-Ri
 ```
 ┌─────────────────────────────┐
 │   Minecraft Server          │
-│   ├─ caaat_discord_bridge   │◄─────────────────────┐
+│   ├─ caaat_chat_bridge     │◄─────────────────────┐
 │   └─ caaat_stats            │                      │
 └────────────┬────────────────┘                      │
              │ WebSocket /ws                         │
@@ -59,11 +59,11 @@ Full releases and changelogs on the [Releases page](https://github.com/Cooper-Ri
              └──────────────────────►  bot.js  (loops back above)
 ```
 
-- **caaat_discord_bridge** handles chat, join/leave, death, and advancement events over WebSocket
-- **caaat_stats** sends periodic player count and server info
+- **caaat_chat_bridge** handles chat, join/leave, death, and advancement events over WebSocket
+- **caaat_stats** sends live player count and server info
 - The **website** sends messages via `POST /` and receives real-time updates via `GET /events` (SSE)
 - **Discord** receives events via a webhook, and the bot watches the channel to relay messages back to Minecraft and the website
-- The bot is exposed publicly via a **Cloudflare Tunnel** (`backend.caaat.dev`)
+- The bot is exposed publicly via a **Cloudflare Tunnel** (`api.caaat.dev`)
 
 ---
 
@@ -81,7 +81,7 @@ Full releases and changelogs on the [Releases page](https://github.com/Cooper-Ri
 ### Install
 
 ```bash
-git clone https://github.com/yourusername/CaaatMinecraftBridge.git
+git clone https://github.com/Cooper-Rice/CaaatMinecraftBridge.git
 cd CaaatMinecraftBridge
 npm install
 ```
@@ -146,6 +146,82 @@ bot.js               # Main bridge server
 bridge-state.json    # Persisted bridge state (auto-generated, never committed)
 package.json
 ```
+
+---
+
+## Website Integration
+
+bot.js exposes two HTTP endpoints that your website connects to. Since bot.js runs locally on your server machine, you'll need a way to expose it publicly — the recommended approach is a **Cloudflare Tunnel**.
+
+### Exposing bot.js publicly
+
+**Option A — Cloudflare Tunnel (recommended)**
+
+Cloudflare Tunnel lets you expose bot.js to the internet without opening any ports or having a static IP. It's free and works on any machine.
+
+1. Install [cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/)
+2. Authenticate: `cloudflared tunnel login`
+3. Create a tunnel: `cloudflared tunnel create my-tunnel`
+4. Create a config file at `~/.cloudflared/config.yml`:
+
+```yaml
+tunnel: <your-tunnel-id>
+credentials-file: /path/to/.cloudflared/<tunnel-id>.json
+
+ingress:
+  - hostname: api.yourdomain.com
+    service: http://localhost:3000
+  - service: http_status:404
+```
+
+5. Route the tunnel to your domain: `cloudflared tunnel route dns my-tunnel api.yourdomain.com`
+6. Run it: `cloudflared tunnel run my-tunnel`
+
+Your bot is now reachable at `https://api.yourdomain.com`.
+
+**Option B — Any reverse proxy**
+
+You can also expose bot.js via nginx, Caddy, or any other reverse proxy pointed at `localhost:3000`.
+
+---
+
+### Connecting your website
+
+Once bot.js is publicly accessible, your website needs to hit two endpoints:
+
+**`GET /events`** — real-time SSE stream
+
+Connect to this on page load to receive live messages, status updates, and player stats:
+
+```javascript
+const events = new EventSource('https://api.yourdomain.com/events');
+
+events.addEventListener('message', (e) => {
+    const msg = JSON.parse(e.data);
+
+    if (msg.type === 'history')   // array of recent messages on connect
+    if (msg.type === 'chat')      // a chat message (from MC, Discord, or web)
+    if (msg.type === 'join')      // player joined
+    if (msg.type === 'leave')     // player left
+    if (msg.type === 'death')     // player died
+    if (msg.type === 'advancement') // player got an advancement
+    if (msg.type === 'stats')     // { players, max, version }
+    if (msg.type === 'status')    // { online: bool, readonly: bool }
+    if (msg.type === 'server')    // server started/stopped
+});
+```
+
+**`POST /`** — send a message from the website
+
+```javascript
+await fetch('https://api.yourdomain.com/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: 'Steve', message: 'Hello from the web!' })
+});
+```
+
+Messages are rate-limited to one per 1.5 seconds per IP and filtered for profanity. The `username` field is sanitized to alphanumeric + underscores/hyphens, max 20 characters. Messages are capped at 200 characters.
 
 ---
 
