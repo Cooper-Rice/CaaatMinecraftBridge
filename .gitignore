@@ -5,4 +5,7 @@ mods/chatbridge/.gradle/
 mods/chatbridge/build/
 mods/chatbridge/.idea/
 mods/chatbridge/run/
-
+mods/statsbridge/.gradle/
+mods/statsbridge/build/
+mods/statsbridge/.idea/
+mods/statsbridge/run/
