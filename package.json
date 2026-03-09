@@ -1,0 +1,20 @@
+{
+  "name": "caaatminecraftbridge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "discord.js": "^14.25.1",
+    "dotenv": "^17.3.1",
+    "leo-profanity": "^1.9.0",
+    "rcon-client": "^4.2.5",
+    "tail": "^2.2.6",
+    "ws": "^8.19.0"
+  }
+}
