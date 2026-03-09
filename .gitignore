@@ -1,3 +1,8 @@
 ﻿.env
 node_modules/
 bridge-state.json
+mods/chatbridge/.gradle/
+mods/chatbridge/build/
+mods/chatbridge/.idea/
+mods/chatbridge/run/
+

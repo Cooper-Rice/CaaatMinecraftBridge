@@ -1,0 +1,25 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "MIT"
+
+[[mods]]
+modId = "caaat_chat_bridge"
+version = "1.0.0"
+displayName = "Caaat Chat Bridge"
+description = """
+Bridges Minecraft chat with Discord and caaat.dev live chat.
+"""
+
+[[dependencies.caaat_chat_bridge]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.11,)"
+ordering = "NONE"
+side = "SERVER"
+
+[[dependencies.caaat_chat_bridge]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.11,)"
+ordering = "NONE"
+side = "SERVER"
