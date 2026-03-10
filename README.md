@@ -8,7 +8,7 @@ Built for [caaat.dev](https://caaat.dev) — a NeoForge 1.21.11 Minecraft server
 
 ## Downloads
 
-> ⚠️ The mods require **NeoForge 1.21.11** and are **server-side only** — do not install on the client.
+> ⚠️ The mods require **NeoForge 1.21.11** and are **server-side only** - do not install on the client.
 
 | Download | Description |
 |---|---|
@@ -24,12 +24,12 @@ Full releases and changelogs on the [Releases page](https://github.com/Cooper-Ri
 
 - 💬 **Bidirectional chat** between Minecraft, Discord, and the website
 - 📡 **Server-Sent Events (SSE)** for real-time updates on the website (no polling)
-- 🟢 **Live server status** — player count, version, uptime
-- 🏆 **Game events** — joins, leaves, deaths, and advancements posted to Discord and website
+- 🟢 **Live server status** - player count, version, uptime
+- 🏆 **Game events** - joins, leaves, deaths, and advancements posted to Discord and website
 - 🛡️ **Profanity filter** on all website messages
 - ⏱️ **Rate limiting** on website chat (per IP)
 - 🔇 **Bridge controls** via Discord slash commands (`/bridge web readonly`, `/bridge web on`)
-- 🔒 **WebSocket auth** — the Minecraft mod must authenticate with a shared token
+- 🔒 **WebSocket auth** - the Minecraft mod must authenticate with a shared token
 
 ---
 
@@ -167,19 +167,19 @@ bot_ws_url = "ws://localhost:3000/ws"
 bot_token = "changeme"
 ```
 
-**`bot_ws_url`** — where the mod should connect to bot.js. If bot.js is running on the same machine as the Minecraft server, leave this as `ws://localhost:3000/ws`. If they're on separate machines (e.g. different VMs), replace `localhost` with the internal IP of the machine running bot.js.
+**`bot_ws_url`** - where the mod should connect to bot.js. If bot.js is running on the same machine as the Minecraft server, leave this as `ws://localhost:3000/ws`. If they're on separate machines (e.g. different VMs), replace `localhost` with the internal IP of the machine running bot.js.
 
-**`bot_token`** — a shared secret that must match the `MC_AUTH_TOKEN` value in your bot.js `.env` file. Change this to something secret — the mod will be rejected if the tokens don't match.
+**`bot_token`** - a shared secret that must match the `MC_AUTH_TOKEN` value in your bot.js `.env` file. Change this to something secret - the mod will be rejected if the tokens don't match.
 
 ---
 
 ## Website Integration
 
-bot.js exposes two HTTP endpoints that your website connects to. Since bot.js runs locally on your server machine, you'll need a way to expose it publicly — the recommended approach is a **Cloudflare Tunnel**.
+bot.js exposes two HTTP endpoints that your website connects to. Since bot.js runs locally on your server machine, you'll need a way to expose it publicly - the recommended approach is a **Cloudflare Tunnel**.
 
 ### Exposing bot.js publicly
 
-**Option A — Cloudflare Tunnel (recommended)**
+**Option A - Cloudflare Tunnel (recommended)**
 
 Cloudflare Tunnel lets you expose bot.js to the internet without opening any ports or having a static IP. It's free and works on any machine.
 
@@ -203,7 +203,7 @@ ingress:
 
 Your bot is now reachable at `https://api.yourdomain.com`.
 
-**Option B — Any reverse proxy**
+**Option B - Any reverse proxy**
 
 You can also expose bot.js via nginx, Caddy, or any other reverse proxy pointed at `localhost:3000`.
 
@@ -213,7 +213,7 @@ You can also expose bot.js via nginx, Caddy, or any other reverse proxy pointed 
 
 Once bot.js is publicly accessible, your website needs to hit two endpoints:
 
-**`GET /events`** — real-time SSE stream
+**`GET /events`** - real-time SSE stream
 
 Connect to this on page load to receive live messages, status updates, and player stats:
 
@@ -235,7 +235,7 @@ events.addEventListener('message', (e) => {
 });
 ```
 
-**`POST /`** — send a message from the website
+**`POST /`** - send a message from the website
 
 ```javascript
 await fetch('https://api.yourdomain.com/', {
