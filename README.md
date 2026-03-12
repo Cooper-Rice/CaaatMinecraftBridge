@@ -96,7 +96,7 @@ cp .env.example .env
 
 ```env
 DISCORD_TOKEN=        # Your Discord bot token
-MC_AUTH_TOKEN=        # A secret string shared with the Minecraft mod
+MC_AUTH_TOKEN=        # A secret string shared with the Minecraft plugins
 WEBHOOK_URL=          # Discord webhook URL for your chat channel
 CHANNEL_ID=           # Discord channel ID to watch for messages
 APPLICATION_ID=       # Discord application ID (for slash commands)
