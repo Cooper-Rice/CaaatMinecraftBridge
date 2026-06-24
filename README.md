@@ -1,8 +1,11 @@
 # CaaatMinecraftBridge
 
+Please note that this no longer works on caaat.dev, as the server now runs Fabric 26.1.2
+(I do plan to remake the mod for fabric though and integrate it into the server/website eventually!)
+
 A Node.js bridge that connects a NeoForge Minecraft server, a Discord server, and a website into a unified live chat. Messages sent in-game, in Discord, or on the website all appear in all three places in real time.
 
-Built for [caaat.dev](https://caaat.dev) — a NeoForge 1.21.11 Minecraft server.
+Built for [caaat.dev](https://caaat.dev) — previously a NeoForge 1.21.11 Minecraft server.
 
 ---
 
